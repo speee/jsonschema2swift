@@ -12,8 +12,8 @@
 		0B5BF9F21D75892E0090666D /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5BF9D31D7432090090666D /* Generator.swift */; };
 		0B7926941DA3556C002B1A8B /* SchemaGenereated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7926931DA3556C002B1A8B /* SchemaGenereated.swift */; };
 		0B7926951DA35623002B1A8B /* SchemaGenereated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7926931DA3556C002B1A8B /* SchemaGenereated.swift */; };
-		0B9FE0CF1DBDB8B3007825C7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9FE0CE1DBDB8B3007825C7 /* SwiftyJSON.swift */; };
-		0B9FE0D01DBDB961007825C7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9FE0CE1DBDB8B3007825C7 /* SwiftyJSON.swift */; };
+		0BCC5DB11DBE149500DE77FC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC5DB01DBE149500DE77FC /* SwiftyJSON.swift */; };
+		0BCC5DB31DBE14E700DE77FC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC5DB01DBE149500DE77FC /* SwiftyJSON.swift */; };
 		0BD97EEB1DB71B28005FF70D /* GenerateSampleAPITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD97EEA1DB71B28005FF70D /* GenerateSampleAPITest.swift */; };
 		5CAE50201DCF11BCA6CEFE50 /* JSON+ByRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE5C204123E4E9C8549B4C /* JSON+ByRef.swift */; };
 		5CAE50A718589C10FD65D68F /* Schema2Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE519E02555A440BA39783 /* Schema2Code.swift */; };
@@ -60,9 +60,9 @@
 		0B5BF9D31D7432090090666D /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		0B5BF9D61D7433680090666D /* TestData.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TestData.bundle; sourceTree = "<group>"; };
 		0B7926931DA3556C002B1A8B /* SchemaGenereated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaGenereated.swift; sourceTree = "<group>"; };
-		0B9FE0CE1DBDB8B3007825C7 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		0BC8F1901D7409F30085A234 /* jsonschema2swiftTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jsonschema2swiftTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BC8F1941D7409F30085A234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BCC5DB01DBE149500DE77FC /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = SOURCE_ROOT; };
 		0BD97EEA1DB71B28005FF70D /* GenerateSampleAPITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateSampleAPITest.swift; sourceTree = "<group>"; };
 		5CAE519E02555A440BA39783 /* Schema2Code.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema2Code.swift; sourceTree = "<group>"; };
 		5CAE51EA26FFD1BF4B505156 /* Dictionary+map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+map.swift"; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		0B5BF9DC1D7440A20090666D /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				0B9FE0CE1DBDB8B3007825C7 /* SwiftyJSON.swift */,
+				0BCC5DB21DBE149D00DE77FC /* SwiftyJSON */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -156,6 +156,14 @@
 				0B5BF9D61D7433680090666D /* TestData.bundle */,
 			);
 			path = jsonschema2swiftTest;
+			sourceTree = "<group>";
+		};
+		0BCC5DB21DBE149D00DE77FC /* SwiftyJSON */ = {
+			isa = PBXGroup;
+			children = (
+				0BCC5DB01DBE149500DE77FC /* SwiftyJSON.swift */,
+			);
+			name = SwiftyJSON;
 			sourceTree = "<group>";
 		};
 		0BD97EA51DB718B3005FF70D /* SampleAPITest */ = {
@@ -348,7 +356,7 @@
 				5CAE5C8F3743E90AD6AAAA15 /* Const.swift in Sources */,
 				5CAE52FDA90FB4673EE1832B /* String+Indention.swift in Sources */,
 				5CAE5ABAE53CF4AAB8239B6A /* JsonSchema+Code.swift in Sources */,
-				0B9FE0CF1DBDB8B3007825C7 /* SwiftyJSON.swift in Sources */,
+				0BCC5DB11DBE149500DE77FC /* SwiftyJSON.swift in Sources */,
 				5CAE50A718589C10FD65D68F /* Schema2Code.swift in Sources */,
 				5CAE53454CEAF875910E8C23 /* EntityGenerator.swift in Sources */,
 				5CAE575DF450E40D54966C1D /* APIGenerator.swift in Sources */,
@@ -374,7 +382,7 @@
 				5CAE52EF164969911BD89E29 /* JsonSchema+Code.swift in Sources */,
 				5CAE5B99BF545DF9CACF00DE /* Schema2Code.swift in Sources */,
 				5CAE538CFCB3F5C0E419B972 /* EntityGenerator.swift in Sources */,
-				0B9FE0D01DBDB961007825C7 /* SwiftyJSON.swift in Sources */,
+				0BCC5DB31DBE14E700DE77FC /* SwiftyJSON.swift in Sources */,
 				5CAE5124EF10E1E89877748B /* APIGenerator.swift in Sources */,
 				5CAE5F07203BBDF774F8F89D /* ResponseEntityGenerator.swift in Sources */,
 			);
