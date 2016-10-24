@@ -3,7 +3,7 @@
 //  jsonschema2swiftTest
 //
 //  Created by hayato.iida on 2016/08/29.
-//  Copyright © 2016年 hayato.iida. All rights reserved.
+//  Copyright © 2016年 Speee, Inc. All rights reserved.
 //
 
 import XCTest

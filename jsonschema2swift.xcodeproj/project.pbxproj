@@ -291,7 +291,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = hayato.iida;
+				ORGANIZATIONNAME = "Speee, Inc.";
 				TargetAttributes = {
 					0B4755721D7018C100627C77 = {
 						CreatedOnToolsVersion = 7.3.1;

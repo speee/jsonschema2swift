@@ -3,7 +3,7 @@
 //  jsonschema2swift
 //
 //  Created by hayato.iida on 2016/08/26.
-//  Copyright © 2016年 hayato.iida. All rights reserved.
+//  Copyright © 2016年 Speee, Inc. All rights reserved.
 //
 
 
