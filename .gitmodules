@@ -1,3 +1,6 @@
 [submodule "Vendor/SwiftyJSON"]
 	path = Vendor/SwiftyJSON
 	url = git@github.com:SwiftyJSON/SwiftyJSON.git
+[submodule "SwiftyJSON"]
+	path = SwiftyJSON
+	url = git@github.com:SwiftyJSON/SwiftyJSON.git
