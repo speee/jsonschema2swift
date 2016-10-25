@@ -16,7 +16,7 @@ json schema to generate swift code
 
 
 ## 出力ファイル
-[example](./jsonschema2swift/jsonschema2swiftTest/TestData.bundle/SampleAPITest)
+[example](./jsonschema2swiftTest/TestData.bundle/SampleAPITest)
 
 - Enttiy/*.swift
 - Api.swift
