@@ -27,7 +27,6 @@
 		5CAE538CFCB3F5C0E419B972 /* EntityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE5D15497E39FA0606D894 /* EntityGenerator.swift */; };
 		5CAE53D0C2D570E2B05B0B60 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE589ED7F65232D8344902 /* Errors.swift */; };
 		5CAE54110C66E90AC1EE5225 /* JsonSchemaEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE56FA1C8F7F922847DA1C /* JsonSchemaEntity.swift */; };
-		5CAE55088CC608CCF5ABA047 /* ResponseEntityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE532AED595970093A9234 /* ResponseEntityGenerator.swift */; };
 		5CAE55682CBD6CCE6FAB2ACF /* Dictionary+map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE51EA26FFD1BF4B505156 /* Dictionary+map.swift */; };
 		5CAE55FB1FBC8D296E64211E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE5A048FE4E031EED950E3 /* main.swift */; };
 		5CAE5651A3FC542B476DBC0A /* String+SnakeCamel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE5DFEF2DCAE2108562F15 /* String+SnakeCamel.swift */; };
@@ -39,7 +38,6 @@
 		5CAE5C4CD25A635C7A6390EF /* String+Indention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE52C400B29ACFE20E3F28 /* String+Indention.swift */; };
 		5CAE5C8F3743E90AD6AAAA15 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE5D7EBCE37E4A702AE38D /* Const.swift */; };
 		5CAE5E52EE6E0D25F739E25C /* JSON+ByRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE5C204123E4E9C8549B4C /* JSON+ByRef.swift */; };
-		5CAE5F07203BBDF774F8F89D /* ResponseEntityGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE532AED595970093A9234 /* ResponseEntityGenerator.swift */; };
 		5CAE5FD098B46AED895C04B8 /* JsonSchemaEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE56FA1C8F7F922847DA1C /* JsonSchemaEntity.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +65,6 @@
 		5CAE519E02555A440BA39783 /* Schema2Code.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema2Code.swift; sourceTree = "<group>"; };
 		5CAE51EA26FFD1BF4B505156 /* Dictionary+map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+map.swift"; sourceTree = "<group>"; };
 		5CAE52C400B29ACFE20E3F28 /* String+Indention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Indention.swift"; sourceTree = "<group>"; };
-		5CAE532AED595970093A9234 /* ResponseEntityGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseEntityGenerator.swift; sourceTree = "<group>"; };
 		5CAE539D54D50013740D7CCA /* APIGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIGenerator.swift; sourceTree = "<group>"; };
 		5CAE55FF603DCB40F7E5FF37 /* JsonSchema+Code.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JsonSchema+Code.swift"; sourceTree = "<group>"; };
 		5CAE56FA1C8F7F922847DA1C /* JsonSchemaEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSchemaEntity.swift; sourceTree = "<group>"; };
@@ -196,7 +193,6 @@
 			children = (
 				5CAE539D54D50013740D7CCA /* APIGenerator.swift */,
 				5CAE5D15497E39FA0606D894 /* EntityGenerator.swift */,
-				5CAE532AED595970093A9234 /* ResponseEntityGenerator.swift */,
 			);
 			path = CodeGenerator;
 			sourceTree = "<group>";
@@ -360,7 +356,6 @@
 				5CAE50A718589C10FD65D68F /* Schema2Code.swift in Sources */,
 				5CAE53454CEAF875910E8C23 /* EntityGenerator.swift in Sources */,
 				5CAE575DF450E40D54966C1D /* APIGenerator.swift in Sources */,
-				5CAE55088CC608CCF5ABA047 /* ResponseEntityGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,7 +379,6 @@
 				5CAE538CFCB3F5C0E419B972 /* EntityGenerator.swift in Sources */,
 				0BCC5DB31DBE14E700DE77FC /* SwiftyJSON.swift in Sources */,
 				5CAE5124EF10E1E89877748B /* APIGenerator.swift in Sources */,
-				5CAE5F07203BBDF774F8F89D /* ResponseEntityGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -58,6 +58,11 @@ extension TypeSchema {
     return self.codeParseOneOf(propertyName, block: codeEnumsDeclare)
   }
 
+  func responseEntityCode(_ propertyName: String = "") -> String {
+    return self.codeParseOneOf(propertyName, block: responseEntity)
+  }
+
+
   fileprivate func codeParseOneOf(_ propertyName: String, block: (_ schema: TypeSchema, _ propertyName: String, _ type: ConcreteType) -> String) -> String {
     if let oneOf = self.oneOf {
       return  oneOf.flatMap {
@@ -153,6 +158,18 @@ extension TypeSchema {
       }
     }
   }
+
+  fileprivate func responseEntity(_ schema: TypeSchema, propertyName: String, type: ConcreteType) -> String {
+    switch type {
+    case .array:
+      return "ResponseArray<\(schema.items!.typeCode())>"
+    case .object:
+      return "ResponseEntity<\(self.typeCode())>"
+    default:
+      return "ResponseEntity<NoContentEntity>"
+    }
+  }
+
 
 
   fileprivate func codeSerializedBy(_ required: Bool) -> ((TypeSchema, String, ConcreteType) -> String) {

@@ -53,7 +53,7 @@ class APIGenerator {
            "  /// - href: \(link.hrefCode)" ++
            "  /// - method: \(link.method!)" ++
            "  struct \(link.title!.snake2Camel): APITarget, APIProtocol {" ++
-           "    typealias Entity = \(link.targetSchema?.typeCode() ?? "NoContentResponseEntity")" ++
+           "    typealias Entity = \(link.targetSchema?.responseEntityCode() ?? "ResponseEntity<NoContentEntity>" )" ++
            "    var configuration: Configuration" ++
            structInitCodeDoc(link) ++
            "    init(\(apiParamsCode(link, join: " "))) {" ++

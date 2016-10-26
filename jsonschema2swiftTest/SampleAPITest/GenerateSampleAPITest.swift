@@ -28,18 +28,6 @@ class GenerateSampleAPITest: XCTestCase {
     XCTAssertEqual(entities.count, 11)
   }
 
-  func testGenerateResponseEntities() {
-    let entities = SchemaGenerated(rootJSON: rootJSON).responses()
-    entities.forEach {
-      let output = $0.1
-      let expect = testHelper.testSwiftData("Entity/" + $0.0)
-      XCTAssertEqual(output, expect)
-    }
-    let entitiesDict = Set(entities.map {
-      $0.0
-    })
-    XCTAssertEqual(entitiesDict.count, 6)
-  }
 
   func testGenerateAPI() {
     let rootSchema = Schema(byRootJSON: rootJSON)!

@@ -33,9 +33,6 @@ class Generator {
       try! $0.1.write(toFile: "\(path)/Entity/\($0.0.snake2Camel)Entity.swift", atomically: true, encoding: String.Encoding.utf8)
     }
 
-    beGenerated.responses().forEach {
-      try! $0.1.write(toFile: "\(path)/Entity/\($0.0).swift", atomically: true, encoding: String.Encoding.utf8)
-    }
 
     let links = rootJSON["definitions"].flatMap {
       $0.1["links"].arrayValue

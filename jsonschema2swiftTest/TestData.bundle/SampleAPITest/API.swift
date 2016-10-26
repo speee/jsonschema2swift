@@ -15,7 +15,7 @@ struct API {
   /// - href: /api/users
   /// - method: GET
   struct GetUsers: APITarget, APIProtocol {
-    typealias Entity = UserResponsesEntity
+    typealias Entity = ResponseArray<UserEntity>
     var configuration: Configuration
     /// - parameter after: 次のページのキー
     /// - parameter before: 前のページのキー
@@ -41,7 +41,7 @@ struct API {
   /// - href: /api/users
   /// - method: POST
   struct CreateUser: APITarget, APIProtocol {
-    typealias Entity = UserResponseEntity
+    typealias Entity = ResponseEntity<UserEntity>
     var configuration: Configuration
     /// - parameter name: 社員名
     /// - parameter companyId: 会社ID
@@ -71,7 +71,7 @@ struct API {
   /// - href: /api/users/{id}
   /// - method: GET
   struct GetUser: APITarget, APIProtocol {
-    typealias Entity = UserResponseEntity
+    typealias Entity = ResponseEntity<UserEntity>
     var configuration: Configuration
     /// - parameter id: 社員ID
     init(id: Int) {
@@ -92,7 +92,7 @@ struct API {
   /// - href: /api/users/{id}
   /// - method: PATCH
   struct UpdateUser: APITarget, APIProtocol {
-    typealias Entity = UserResponseEntity
+    typealias Entity = ResponseEntity<UserEntity>
     var configuration: Configuration
     /// - parameter id: 社員ID
     /// - parameter name: 社員名
@@ -121,7 +121,7 @@ struct API {
   /// - href: /api/users/{id}
   /// - method: DELETE
   struct DeleteUser: APITarget, APIProtocol {
-    typealias Entity = NoContentResponseEntity
+    typealias Entity = ResponseEntity<NoContentEntity>
     var configuration: Configuration
     /// - parameter id: 社員ID
     init(id: Int) {
@@ -142,7 +142,7 @@ struct API {
   /// - href: /api/users/search
   /// - method: GET
   struct SearchUsers: APITarget, APIProtocol {
-    typealias Entity = UserResponsesEntity
+    typealias Entity = ResponseArray<UserEntity>
     var configuration: Configuration
     /// - parameter departmentId: 部署ID
     /// - parameter companyId: 会社ID
@@ -174,7 +174,7 @@ struct API {
   /// - href: /api/companies
   /// - method: GET
   struct GetCompanies: APITarget, APIProtocol {
-    typealias Entity = CompanyResponsesEntity
+    typealias Entity = ResponseArray<CompanyEntity>
     var configuration: Configuration
 
     init() {
@@ -195,7 +195,7 @@ struct API {
   /// - href: /api/companies
   /// - method: POST
   struct CreateCompany: APITarget, APIProtocol {
-    typealias Entity = CompanyResponseEntity
+    typealias Entity = ResponseEntity<CompanyEntity>
     var configuration: Configuration
     /// - parameter tel: 電話番号
     ///  ( pattern: ^[0-9]{2,5}-?[0-9]{1,4}-?[0-9]{4}$ )
@@ -228,7 +228,7 @@ struct API {
   /// - href: /api/companies/{id}
   /// - method: GET
   struct GetCompany: APITarget, APIProtocol {
-    typealias Entity = CompanyResponseEntity
+    typealias Entity = ResponseEntity<CompanyEntity>
     var configuration: Configuration
     /// - parameter id: 会社ID
     init(id: Int) {
@@ -249,7 +249,7 @@ struct API {
   /// - href: /api/companies/{id}
   /// - method: PATCH
   struct UpdateCompany: APITarget, APIProtocol {
-    typealias Entity = CompanyResponseEntity
+    typealias Entity = ResponseEntity<CompanyEntity>
     var configuration: Configuration
     /// - parameter id: 会社ID
     /// - parameter tel: 電話番号
@@ -283,7 +283,7 @@ struct API {
   /// - href: /api/companies/{id}
   /// - method: DELETE
   struct DeleteCompany: APITarget, APIProtocol {
-    typealias Entity = NoContentResponseEntity
+    typealias Entity = ResponseEntity<NoContentEntity>
     var configuration: Configuration
     /// - parameter id: 会社ID
     init(id: Int) {
@@ -304,7 +304,7 @@ struct API {
   /// - href: /api/companies/{id}/departments
   /// - method: GET
   struct SearchCompanyDepartments: APITarget, APIProtocol {
-    typealias Entity = DepartmentResponsesEntity
+    typealias Entity = ResponseArray<DepartmentEntity>
     var configuration: Configuration
     /// - parameter id: 会社ID
     init(id: Int) {
@@ -325,7 +325,7 @@ struct API {
   /// - href: /api/companies/{id}/departments/{id}/users
   /// - method: GET
   struct SearchCompanyDepartmentUsers: APITarget, APIProtocol {
-    typealias Entity = UserResponsesEntity
+    typealias Entity = ResponseArray<UserEntity>
     var configuration: Configuration
     /// - parameter id: 部署ID
     init(id: Int) {
@@ -346,7 +346,7 @@ struct API {
   /// - href: /api/companies/{id}/clubs
   /// - method: GET
   struct SearchCompanyClubs: APITarget, APIProtocol {
-    typealias Entity = CompanyClubsResponseEntity
+    typealias Entity = ResponseArray<CompanyClubEntity>
     var configuration: Configuration
     /// - parameter id: 会社ID
     init(id: Int) {

@@ -48,15 +48,6 @@ class SchemaGenerated {
     return definitions + linkSchemas + targetSchemas + targetParameterSchema
   }
 
-  func responses() -> [(String, String)] {
-    return rootJSON["definitions"].flatMap {
-      return self.targetSchemas($0.0, json: $0.1["links"].arrayValue)
-      }.map {
-        let schema = TargetSchema(byRef: $0.1, rootJSON: rootJSON)!
-        return (schema.typeCode(), ResponseEntityGenerator(rootSchema: rootSchema, name: $0.0, schema: schema).generate())
-    }
-  }
-
 
   func definitionSchemas(_ key: String, schema: DefinitionSchema, path: String) -> [(String, String)] {
     return schema.definitions!.filter {
