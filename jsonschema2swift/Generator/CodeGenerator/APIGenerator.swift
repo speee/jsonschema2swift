@@ -61,7 +61,7 @@ class APIGenerator {
            paramsDictCodeGen(link) +
            "      configuration = Configuration.init(" ++
            "          path: \"\(pathStringCode(link))\"," ++
-           "          method: .\(link.method!)," ++
+           "          method: .\(link.method!.lowercased())," ++
            "          parameters: params," ++
            "          sampleDataString: \"\"" ++
            "      )" ++

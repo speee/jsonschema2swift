@@ -27,7 +27,7 @@ struct API {
       params["company_id"] = companyId.serialized
       configuration = Configuration.init(
           path: "/api/users",
-          method: .GET,
+          method: .get,
           parameters: params,
           sampleDataString: ""
       )
@@ -57,7 +57,7 @@ struct API {
       params["profile"] = profile?.serialized
       configuration = Configuration.init(
           path: "/api/users",
-          method: .POST,
+          method: .post,
           parameters: params,
           sampleDataString: ""
       )
@@ -78,7 +78,7 @@ struct API {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
           path: "/api/users/\(id)",
-          method: .GET,
+          method: .get,
           parameters: params,
           sampleDataString: ""
       )
@@ -107,7 +107,7 @@ struct API {
       params["profile"] = profile?.serialized
       configuration = Configuration.init(
           path: "/api/users/\(id)",
-          method: .PATCH,
+          method: .patch,
           parameters: params,
           sampleDataString: ""
       )
@@ -128,7 +128,7 @@ struct API {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
           path: "/api/users/\(id)",
-          method: .DELETE,
+          method: .delete,
           parameters: params,
           sampleDataString: ""
       )
@@ -160,7 +160,7 @@ struct API {
       params["before"] = before?.serialized
       configuration = Configuration.init(
           path: "/api/users/search",
-          method: .GET,
+          method: .get,
           parameters: params,
           sampleDataString: ""
       )
@@ -181,7 +181,7 @@ struct API {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
           path: "/api/companies",
-          method: .GET,
+          method: .get,
           parameters: params,
           sampleDataString: ""
       )
@@ -214,7 +214,7 @@ struct API {
       params["address"] = address.serialized
       configuration = Configuration.init(
           path: "/api/companies",
-          method: .POST,
+          method: .post,
           parameters: params,
           sampleDataString: ""
       )
@@ -235,7 +235,7 @@ struct API {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
           path: "/api/companies/\(id)",
-          method: .GET,
+          method: .get,
           parameters: params,
           sampleDataString: ""
       )
@@ -269,7 +269,7 @@ struct API {
       params["address"] = address?.serialized
       configuration = Configuration.init(
           path: "/api/companies/\(id)",
-          method: .PATCH,
+          method: .patch,
           parameters: params,
           sampleDataString: ""
       )
@@ -311,7 +311,7 @@ struct API {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
           path: "/api/companies/\(id)/departments",
-          method: .GET,
+          method: .get,
           parameters: params,
           sampleDataString: ""
       )
@@ -332,7 +332,7 @@ struct API {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
           path: "/api/companies/\(id)/departments/\(id)/users",
-          method: .GET,
+          method: .get,
           parameters: params,
           sampleDataString: ""
       )
@@ -353,7 +353,7 @@ struct API {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
           path: "/api/companies/\(id)/clubs",
-          method: .GET,
+          method: .get,
           parameters: params,
           sampleDataString: ""
       )
