@@ -48,7 +48,7 @@ class APIGenerator {
   fileprivate func structCodeGen(_ link: LinkSchema) -> String {
     return "  /// \(link.title!)" ++
            "  ///" ++
-           "  /// \(link.description!)" ++
+           "  /// \(link.description!.replacingOccurrences(of: "\n", with: "\n  /// "))" ++
            "  ///" ++
            "  /// - href: \(link.hrefCode)" ++
            "  /// - method: \(link.method!)" ++
