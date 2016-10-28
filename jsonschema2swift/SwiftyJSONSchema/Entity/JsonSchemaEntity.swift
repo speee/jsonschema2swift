@@ -106,6 +106,7 @@ protocol TypeSchema: JsonSchema {
   var type: [ConcreteType]? { get }
   var format: String? { get }
   var oneOf: [PropertySchema]? { get }
+  var ref: String? { get set }
   var enumValues: [String]? { get }
   /// 独自定義
   var enumDescription: [EnumDescription]? { get }

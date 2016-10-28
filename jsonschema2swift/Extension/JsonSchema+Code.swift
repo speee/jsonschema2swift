@@ -111,10 +111,22 @@ extension TypeSchema {
     }
   }
 
+  var parentSchema:TypeSchema?{
+    guard let ref = ref else {
+      return nil
+    }
+    let separates = ref.components(separatedBy: "/")
+    return PropertySchema(byRef: separates[0 ... (separates.count - 3)].joined(separator: "/"), rootJSON: self.rootJSON)!
+  }
+
   fileprivate func codeTypeBy(_ schema: TypeSchema, propertyName: String, type: ConcreteType) -> String {
     //FIXME
     if (schema.enumDescription) != nil {
-      return propertyName.snake2Camel
+      if let parentSchema = schema.parentSchema {
+        return parentSchema.title!.snake2Camel + "Entity." + (schema.title ?? propertyName).snake2Camel
+      }else{
+        return propertyName.snake2Camel
+      }
     }
     switch type {
     case .array:
