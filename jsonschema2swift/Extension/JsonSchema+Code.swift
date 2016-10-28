@@ -128,7 +128,7 @@ extension TypeSchema {
     return { (_ schema: TypeSchema, propertyName: String, type: ConcreteType) in
       //FIXME
       if (schema.enumDescription) != nil {
-        return "    self.\(propertyName.snake2camel) = \(propertyName.snake2Camel)(rawValue: json[\"\(propertyName)\"].\(type.rawValue)!)!" + n
+        return "    self.\(propertyName.snake2camel) = \(propertyName.snake2Camel)(rawValue: json[\"\(propertyName)\"].\(self.rawValue(type: type))!)!" + n
       }
       switch type {
       case .null:
@@ -156,6 +156,15 @@ extension TypeSchema {
           return "    self.\(propertyName.snake2camel) = json[\"\(propertyName)\"].\(self.typeCode().snake2camel)\(nullCheck)" + n
         }
       }
+    }
+  }
+
+  fileprivate func rawValue(type: ConcreteType)->String{
+    switch type {
+    case .integer:
+      return "Int"
+    default:
+      return type.rawValue
     }
   }
 
