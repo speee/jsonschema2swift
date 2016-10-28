@@ -162,7 +162,7 @@ extension TypeSchema {
   fileprivate func rawValue(type: ConcreteType)->String{
     switch type {
     case .integer:
-      return "Int"
+      return "int"
     default:
       return type.rawValue
     }
