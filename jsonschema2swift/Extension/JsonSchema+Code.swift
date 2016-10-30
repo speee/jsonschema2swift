@@ -202,7 +202,7 @@ extension TypeSchema {
 
   fileprivate func codeEnumsDeclare(_ schema: TypeSchema, propertyName: String, type: ConcreteType) -> String {
     return "  /// \(schema.description!)" ++
-           "  enum \(propertyName.snake2Camel): \(schema.codeInnerTypeBy(schema, propertyName: propertyName, type: type)) {" +
+           "  public enum \(propertyName.snake2Camel): \(schema.codeInnerTypeBy(schema, propertyName: propertyName, type: type)) {" +
            schema.enumDescription!.map {
              switch type {
              case .integer:
