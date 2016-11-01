@@ -79,7 +79,7 @@ class EntityGenerator {
       return  self.schema.properties!.map {
         let nullableCode = $1.nullable(self.schema.required.contains($0)) ? "?" : ""
         return parametersCodeDoc(schema: $1) ++
-               "  var \($0.snake2camel): " + $1.typeCode($0) + nullableCode + n
+               "  public var \($0.snake2camel): " + $1.typeCode($0) + nullableCode + n
       }.reduce("") {
         $0 + $1
       }
@@ -122,7 +122,7 @@ class EntityGenerator {
         return ""
       }
       return "" ++
-             "  static func ==(left: \(name.snake2Camel)Entity, right: \(name.snake2Camel)Entity) -> Bool {" ++
+             "  public static func ==(left: \(name.snake2Camel)Entity, right: \(name.snake2Camel)Entity) -> Bool {" ++
              "    return " + self.schema.identity.map {
                "left.\($0.propertyKey) == right.\($0.propertyKey)" + n
              }.combineCodeBlock(" && ")
