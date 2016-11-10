@@ -122,11 +122,7 @@ extension TypeSchema {
   fileprivate func codeTypeBy(_ schema: TypeSchema, propertyName: String, type: ConcreteType) -> String {
     //FIXME
     if (schema.enumDescription) != nil {
-      if let parentSchema = schema.parentSchema {
-        return parentSchema.title!.snake2Camel + "Entity." + (schema.title ?? propertyName).snake2Camel
-      }else{
-        return propertyName.snake2Camel
-      }
+      return getPropertyTypeName(schema, propertyName: propertyName)
     }
     switch type {
     case .array:
@@ -136,11 +132,19 @@ extension TypeSchema {
     }
   }
 
+  fileprivate func getPropertyTypeName(_ schema: TypeSchema, propertyName: String) -> String{
+    if let parentSchema = schema.parentSchema {
+      return parentSchema.title!.snake2Camel + "Entity." + (schema.title ?? propertyName).snake2Camel
+    }else{
+      return propertyName.snake2Camel
+    }
+  }
+
   fileprivate func codeMappingBy(_ required: Bool) -> ((TypeSchema, String, ConcreteType) -> String) {
     return { (_ schema: TypeSchema, propertyName: String, type: ConcreteType) in
       //FIXME
       if (schema.enumDescription) != nil {
-        return "    self.\(propertyName.snake2camel) = \(propertyName.snake2Camel)(rawValue: json[\"\(propertyName)\"].\(self.rawValue(type: type))!)!" + n
+        return "    self.\(propertyName.snake2camel) = \(self.getPropertyTypeName(schema, propertyName: propertyName))(rawValue: json[\"\(propertyName)\"].\(self.rawValue(type: type))!)!" + n
       }
       switch type {
       case .null:
