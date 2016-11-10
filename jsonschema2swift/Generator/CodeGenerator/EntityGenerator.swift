@@ -26,6 +26,7 @@ class EntityGenerator {
            declareCode ++
            enumDefinitions ++
            parametersCode ++
+           initializerCode ++
            mappingBaseCode ++
            comparisonCode ++
            serializedCodeBlock ++
@@ -113,6 +114,33 @@ class EntityGenerator {
       }.reduce("") {
         $0 + $1
       }
+    }
+  }
+
+  var initializerCode: String {
+    get {
+      return "" +
+             "  public init(\(initializerParamCode)) {" ++
+             initializerMappingCode ++
+             "  }" ++
+             ""
+    }
+  }
+
+  var initializerParamCode: String {
+    get {
+      return self.schema.properties!.map {
+        let nullableCode = $1.nullable(self.schema.required.contains($0)) ? "? = nil" : ""
+        return "\($0.snake2camel): " + $1.typeCode($0) + nullableCode
+      }.combineCodeBlock()
+    }
+  }
+
+  var initializerMappingCode: String {
+    get {
+      return self.schema.properties!.map {
+        return "    self.\($0.0.snake2camel) = \($0.0.snake2camel)"
+      }.combineCodeBlock(n)
     }
   }
 
