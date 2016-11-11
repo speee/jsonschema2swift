@@ -200,7 +200,7 @@ extension TypeSchema {
   fileprivate func codeSerializedBy(_ required: Bool) -> ((TypeSchema, String, ConcreteType) -> String) {
     return { (_ schema: TypeSchema, propertyName: String, type: ConcreteType) in
       let nullCheck = self.nullable(required) ? "?" : ""
-      return "    param[\"\(propertyName.snake2camel)\"] = \(propertyName.snake2camel)\(nullCheck).serialized" + n
+      return "    param[\"\(propertyName)\"] = \(propertyName.snake2camel)\(nullCheck).serialized" + n
     }
   }
 
