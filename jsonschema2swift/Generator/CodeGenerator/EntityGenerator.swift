@@ -52,7 +52,7 @@ class EntityGenerator {
   var declareCode: String {
     get {
       return declareCodeDoc ++
-             "public struct \(name.snake2Camel)Entity: EntityType, \(singleEntityType) {"
+             "public struct \(name.snake2Camel)Entity: \(singleEntityType) {"
     }
   }
 
