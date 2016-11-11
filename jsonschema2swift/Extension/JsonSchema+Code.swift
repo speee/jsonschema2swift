@@ -111,6 +111,33 @@ extension TypeSchema {
     }
   }
 
+  func containOtherEntity(_ schema:TypeSchema)->Bool{
+    if let oneOf = self.oneOf {
+      //OneOf
+      return !oneOf.flatMap {
+        $0.type!
+        }.reduce(false){
+          return $0 || containOtherEntity(schema, type: $1)
+      }
+    }
+
+      return schema.type!.reduce(false){
+      return $0 || containOtherEntity(schema, type: $1)
+    }
+  }
+
+  func containOtherEntity(_ schema:TypeSchema, type: ConcreteType) -> Bool {
+    switch type {
+    case .object:
+      return true
+    case .array:
+      return containOtherEntity(schema.items!)
+    default:
+      return false
+    }
+  }
+
+
   var parentSchema:TypeSchema?{
     guard let ref = ref else {
       return nil

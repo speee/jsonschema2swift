@@ -52,7 +52,21 @@ class EntityGenerator {
   var declareCode: String {
     get {
       return declareCodeDoc ++
-             "public struct \(name.snake2Camel)Entity: EntityType {"
+             "public struct \(name.snake2Camel)Entity: EntityType, \(singleEntityType) {"
+    }
+  }
+
+  var singleEntityType: String {
+    get {
+      return containOtherEntity ? "RelatedEntityType" : "SingleEntityType"
+    }
+  }
+
+  var containOtherEntity: Bool {
+    get {
+      return self.schema.properties!.reduce(false){
+        $0 || $1.1.containOtherEntity($1.1)
+      }
     }
   }
 
