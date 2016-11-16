@@ -5,6 +5,17 @@
 
 import Foundation
 
+enum CodeClass {
+  case null
+  case array
+  case object
+  case bool
+  case int
+  case double
+  case string
+  case date
+  case image
+}
 
 extension PropertySchema {
   var propertyKey: String {
@@ -25,7 +36,7 @@ extension TypeSchema {
       //OneOf
       return !oneOf.filter {
         $0.type!.contains(.null)
-        }.isEmpty
+      }.isEmpty
     } else if self.enumValues != nil {
       return false
     } else if let type = self.type {
@@ -46,6 +57,10 @@ extension TypeSchema {
     return self.codeParseOneOf(propertyName, block: codeInnerTypeBy)
   }
 
+  func codeClass(_ propertyName: String = "") -> CodeClass {
+    return self.codeParseOneOf(propertyName, block: codeClassBy)
+  }
+
   func mappingCode(_ propertyName: String, required: Bool) -> String {
     return self.codeParseOneOf(propertyName, block: codeMappingBy(required))
   }
@@ -62,10 +77,9 @@ extension TypeSchema {
     return self.codeParseOneOf(propertyName, block: responseEntity)
   }
 
-
   fileprivate func codeParseOneOf(_ propertyName: String, block: (_ schema: TypeSchema, _ propertyName: String, _ type: ConcreteType) -> String) -> String {
     if let oneOf = self.oneOf {
-      return  oneOf.flatMap {
+      return oneOf.flatMap {
         return $0.type!.first == .null ? nil : $0
       }.first!.codeTypeString(propertyName, block: block)
     } else if self.enumValues != nil {
@@ -86,6 +100,29 @@ extension TypeSchema {
     return ""
   }
 
+  fileprivate func codeParseOneOf(_ propertyName: String, block: (_ schema: TypeSchema, _ propertyName: String, _ type: ConcreteType) -> CodeClass) -> CodeClass {
+    if let oneOf = self.oneOf {
+      return oneOf.flatMap {
+        return $0.type!.first == .null ? nil : $0
+      }.first!.codeTypeString(propertyName, block: block)
+    } else if self.enumValues != nil {
+    }
+    return self.codeTypeString(propertyName, block: block)
+  }
+
+  fileprivate func codeTypeString(_ propertyName: String, block: (_ schema: TypeSchema, _ propertyName: String, _ type: ConcreteType) -> CodeClass) -> CodeClass {
+    if let type = self.type {
+      assert(type.count <= 2, "propertySchema.type.count > 2")
+      let typeNotNull = type.filter {
+        $0 != .null
+      }.first
+      if let type = typeNotNull {
+        return block(self, propertyName, type)
+      }
+    }
+    return .null
+  }
+
   fileprivate func codeInnerTypeBy(_ schema: TypeSchema, propertyName: String, type: ConcreteType) -> String {
     switch type {
     case .null:
@@ -93,7 +130,7 @@ extension TypeSchema {
     case .array:
       return "\(schema.items!.typeCode())"
     case .object:
-        return "\((schema.title ?? propertyName).snake2Camel )" + "Entity"
+      return "\((schema.title ?? propertyName).snake2Camel)" + "Entity"
     case .boolean:
       return "Bool"
     case .integer:
@@ -111,22 +148,22 @@ extension TypeSchema {
     }
   }
 
-  func containOtherEntity(_ schema:TypeSchema)->Bool{
+  func containOtherEntity(_ schema: TypeSchema) -> Bool {
     if let oneOf = self.oneOf {
       //OneOf
       return !oneOf.flatMap {
         $0.type!
-        }.reduce(false){
-          return $0 || containOtherEntity(schema, type: $1)
+      }.reduce(false) {
+        return $0 || containOtherEntity(schema, type: $1)
       }
     }
 
-      return schema.type!.reduce(false){
+    return schema.type!.reduce(false) {
       return $0 || containOtherEntity(schema, type: $1)
     }
   }
 
-  func containOtherEntity(_ schema:TypeSchema, type: ConcreteType) -> Bool {
+  func containOtherEntity(_ schema: TypeSchema, type: ConcreteType) -> Bool {
     switch type {
     case .object:
       return true
@@ -137,8 +174,33 @@ extension TypeSchema {
     }
   }
 
+  fileprivate func codeClassBy(_ schema: TypeSchema, propertyName: String, type: ConcreteType) -> CodeClass {
+    switch type {
+    case .null:
+      return .null
+    case .array:
+      return schema.items!.codeClass()
+    case .object:
+      return .object
+    case .boolean:
+      return .bool
+    case .integer:
+      return .int
+    case .number:
+      return .double
+    case .string:
+      if let format = self.format, format == "date-time" {
+        return .date
+      } else if (schema.media) != nil {
+        return .image
+      } else {
+        return .string
+      }
+    }
+  }
 
-  var parentSchema:TypeSchema?{
+
+  var parentSchema: TypeSchema? {
     guard let ref = ref else {
       return nil
     }
@@ -159,10 +221,10 @@ extension TypeSchema {
     }
   }
 
-  fileprivate func getPropertyTypeName(_ schema: TypeSchema, propertyName: String) -> String{
+  fileprivate func getPropertyTypeName(_ schema: TypeSchema, propertyName: String) -> String {
     if let parentSchema = schema.parentSchema {
       return parentSchema.title!.snake2Camel + "Entity." + (schema.title ?? propertyName).snake2Camel
-    }else{
+    } else {
       return propertyName.snake2Camel
     }
   }
@@ -178,7 +240,7 @@ extension TypeSchema {
         return ""
       case .array:
         let nullCheck = self.nullable(required) ? "?" : ""
-        return "    self.\(propertyName.snake2camel) = json[\"\(propertyName)\"].arrayValue.map { \(self.typeInnerCode())(json: $0)! } as\(nullCheck) \(self.typeCode())" + n
+        return "    self.\(propertyName.snake2camel) = json[\"\(propertyName)\"].arrayValue.map { \(self.mapInitCode(propertyName))! } as\(nullCheck) \(self.typeCode())" + n
       case .object:
         let nullCheck = self.nullable(required) ? "?" : "!"
         return "    self.\(propertyName.snake2camel) = \(self.typeCode())(json: json[\"\(propertyName)\"]) as \(self.typeCode())\(nullCheck)" + n
@@ -202,7 +264,7 @@ extension TypeSchema {
     }
   }
 
-  fileprivate func rawValue(type: ConcreteType)->String{
+  fileprivate func rawValue(type: ConcreteType) -> String {
     switch type {
     case .integer:
       return "int"
@@ -223,6 +285,30 @@ extension TypeSchema {
   }
 
 
+  func mapInitCode(_ propertyName: String) -> String {
+    switch self.codeClass() {
+    case .null:
+      return ""
+    case .array:
+
+      return "json[\"\(propertyName)\"].arrayValue.map { ! }"
+    case .object:
+      return "\(self.typeInnerCode())(json: $0)"
+    case .bool:
+      return "$0.bool"
+    case .int:
+      return "$0.int"
+    case .double:
+      return "$0.double"
+    case .string:
+      return "$0.string"
+    case .date:
+      return "$0.date"
+    case .image:
+      return "$0.image"
+    }
+  }
+
 
   fileprivate func codeSerializedBy(_ required: Bool) -> ((TypeSchema, String, ConcreteType) -> String) {
     return { (_ schema: TypeSchema, propertyName: String, type: ConcreteType) in
@@ -233,22 +319,22 @@ extension TypeSchema {
 
   fileprivate func codeEnumsDeclare(_ schema: TypeSchema, propertyName: String, type: ConcreteType) -> String {
     return "  /// \(schema.description!)" ++
-           "  public enum \(propertyName.snake2Camel): \(schema.codeInnerTypeBy(schema, propertyName: propertyName, type: type)) {" +
-           schema.enumDescription!.map {
-             switch type {
-             case .integer:
-               return "    case \($0.key.snake2camel) = \($0.value)"
-             case .number:
-               return "    case \($0.key.snake2camel) = \($0.value)"
-             case .string:
-               return "    case \($0.key.snake2camel) = \"\($0.value)\""
-             default:
-               return ""
-             }
-           }.reduce("") {
-             $0 ++ $1
-           } ++
-           "  }" ++
-           ""
+    "  public enum \(propertyName.snake2Camel): \(schema.codeInnerTypeBy(schema, propertyName: propertyName, type: type)) {" +
+    schema.enumDescription!.map {
+          switch type {
+          case .integer:
+            return "    case \($0.key.snake2camel) = \($0.value)"
+          case .number:
+            return "    case \($0.key.snake2camel) = \($0.value)"
+          case .string:
+            return "    case \($0.key.snake2camel) = \"\($0.value)\""
+          default:
+            return ""
+          }
+        }.reduce("") {
+          $0 ++ $1
+        } ++
+    "  }" ++
+    ""
   }
 }

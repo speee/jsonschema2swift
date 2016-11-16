@@ -114,13 +114,14 @@ class EntityGenerator {
     get {
       return "" +
              "  public init?(json: JSON) {" ++
-             "    guard !json.isEmpty else {" ++
+             "    if json.isEmpty {" ++
              "      return nil" ++
              "    }" ++
              mappingCode +
              "  }"
+      }
     }
-  }
+
   var mappingCode: String {
     get {
       return  self.schema.properties!.map {
