@@ -15,4 +15,4 @@ if CommandLine.argc < 3 {
 
 let jsonPath = CommandLine.arguments[1]
 let outputPath = CommandLine.arguments[2]
-try! Schema2Code().convert(inputPath:jsonPath, outputPath: outputPath)
+try! Schema2Code().convert(inputPath: jsonPath, outputPath: outputPath)

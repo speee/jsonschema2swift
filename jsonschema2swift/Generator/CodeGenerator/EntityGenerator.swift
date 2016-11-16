@@ -64,7 +64,7 @@ class EntityGenerator {
 
   var containOtherEntity: Bool {
     get {
-      return self.schema.properties!.reduce(false){
+      return self.schema.properties!.reduce(false) {
         $0 || $1.1.containOtherEntity($1.1)
       }
     }
@@ -74,18 +74,18 @@ class EntityGenerator {
     get {
       return "" ++
              (self.schema.title != nil ? "/// \(self.schema.title!)" : "") +
-      (self.schema.description != nil ? n + "///" ++ "/// \(self.schema.description!)" : "")
+             (self.schema.description != nil ? n + "///" ++ "/// \(self.schema.description!)" : "")
     }
   }
 
   var enumDefinitions: String {
     return  self.schema.properties!.filter {
-              $1.enumDescription != nil
-            }.map {
-              $1.enumDefinitionCode($0)
-            }.reduce("") {
-              $0 ++ $1
-            }
+      $1.enumDescription != nil
+    }.map {
+      $1.enumDefinitionCode($0)
+    }.reduce("") {
+      $0 ++ $1
+    }
   }
 
 
@@ -119,8 +119,8 @@ class EntityGenerator {
              "    }" ++
              mappingCode +
              "  }"
-      }
     }
+  }
 
   var mappingCode: String {
     get {
@@ -203,7 +203,7 @@ class EntityGenerator {
 }
 
 
-extension RootSchemaProtocol where Self:JsonSchema {
+extension RootSchemaProtocol where Self: JsonSchema {
   /// 独自定義
   /// プライマリキーに相当
   /// `==`のコードを生成

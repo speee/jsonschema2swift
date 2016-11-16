@@ -19,7 +19,7 @@ extension JSON {
 
   func reference(_ byRef: String, rootJSON: JSON) -> JSON {
     let separates = byRef.components(separatedBy: "/")
-    let path      = separates[0]
+    let path = separates[0]
     if path == "#" {
       // "#/definitions/user" -> "definitions/user"
       return rootJSON.reference(removeAndSeparate(separates), rootJSON: rootJSON)
@@ -29,7 +29,7 @@ extension JSON {
       return self[path]
     }
 
-    let mine = Int(path) != nil ? self[Int(path)!] :  self[path]
+    let mine = Int(path) != nil ? self[Int(path)!] : self[path]
     return mine.reference(removeAndSeparate(separates), rootJSON: rootJSON)
   }
 

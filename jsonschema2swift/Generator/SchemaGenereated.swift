@@ -31,18 +31,18 @@ class SchemaGenerated {
 
     let linkSchemas = rootSchema.definitions!.filter {
       ($1.links != nil)
-      }.flatMap {
+    }.flatMap {
       return self.linkSchemasForEntity($1.title ?? $0, schema: $1.links!)
     }
     let targetSchemas = rootSchema.definitions!.filter {
       ($1.links != nil)
-      }.flatMap {
+    }.flatMap {
       return self.targetSchemasForEntity($1.title ?? $0, schema: $1.links!)
     }
 
     let targetParameterSchema = rootSchema.definitions!.filter {
       $1.links != nil
-      }.flatMap {
+    }.flatMap {
       return self.targetPropertySchemas(schemas: $1.links!, path: "#/definitions/\($0)")
     }
     return definitions + linkSchemas + targetSchemas + targetParameterSchema
@@ -51,10 +51,10 @@ class SchemaGenerated {
 
   func definitionSchemas(_ key: String, schema: DefinitionSchema, path: String) -> [(String, String)] {
     return schema.definitions!.filter {
-        schemaIsObject(schema: $1) || schemaIsObjectInArray(schema: $1)
-      }.flatMap {
-        self.definitionSchema($0, schema: $1, path: path)
-      } + [(key, path: path)]
+          schemaIsObject(schema: $1) || schemaIsObjectInArray(schema: $1)
+        }.flatMap {
+          self.definitionSchema($0, schema: $1, path: path)
+        } + [(key, path: path)]
   }
 
   func definitionSchema(_ key: String, schema: PropertySchema, path: String) -> [(String, String)] {
@@ -74,7 +74,7 @@ class SchemaGenerated {
   func schemaIsArray(schema: TypeSchema) -> Bool {
     return !schema.type!.filter {
       $0 == .array
-      }.isEmpty
+    }.isEmpty
   }
 
   func schemaIsObjectInArray(schema: TypeSchema) -> Bool {
@@ -84,15 +84,15 @@ class SchemaGenerated {
            }.isEmpty
   }
 
-  func  linkSchemasForEntity(_ schemaName: String, schema: [LinkSchema]) -> [(String, String)] {
+  func linkSchemasForEntity(_ schemaName: String, schema: [LinkSchema]) -> [(String, String)] {
     return schema.enumerated().filter {
       $0.1.schema?.ref == nil &&
-        $0.1.schema?.items?.ref == nil &&
-        $0.1.schema?.properties != nil
-      }.flatMap {
+      $0.1.schema?.items?.ref == nil &&
+      $0.1.schema?.properties != nil
+    }.flatMap {
       refToPropertySchema(schemas: $0.1.schema!.properties, path: "#/definitions/\(schemaName)/links/\($0.0)/schema")
-      }.flatMap {
-        $0
+    }.flatMap {
+      $0
     }
   }
 
@@ -117,18 +117,18 @@ class SchemaGenerated {
   func targetSchemas(_ schemaName: String, json: [JSON]) -> [(String, String)] {
     return json.enumerated().filter {
       !$0.1["targetSchema"].isEmpty
-      }.map {
-        ($0.1["title"].stringValue, "#/definitions/\(schemaName)/links/\($0.0)/targetSchema")
+    }.map {
+      ($0.1["title"].stringValue, "#/definitions/\(schemaName)/links/\($0.0)/targetSchema")
     }
   }
 
   func targetPropertySchemas(schemas: [LinkSchema], path: String) -> [(String, String)] {
     return schemas.enumerated().filter {
       $0.1.targetSchema != nil
-      }.flatMap {
+    }.flatMap {
       return self.targetPropertySchema(schema: $0.1.targetSchema!, path: "\(path)/links/\($0.0)/targetSchema")
-      }.flatMap {
-        $0
+    }.flatMap {
+      $0
     }
   }
 

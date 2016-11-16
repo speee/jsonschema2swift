@@ -53,7 +53,7 @@ class APIGenerator {
            "  /// - href: \(link.hrefCode)" ++
            "  /// - method: \(link.method!)" ++
            "  struct \(link.title!.snake2Camel): APITarget, APIProtocol {" ++
-           "    typealias Entity = \(link.targetSchema?.responseEntityCode() ?? "ResponseEntity<NoContentEntity>" )" ++
+           "    typealias Entity = \(link.targetSchema?.responseEntityCode() ?? "ResponseEntity<NoContentEntity>")" ++
            "    var configuration: Configuration" ++
            structInitCodeDoc(link) ++
            "    init(\(apiParamsCode(link, join: " "))) {" ++
@@ -72,7 +72,7 @@ class APIGenerator {
 
 
   fileprivate func enumCodeGen(_ link: LinkSchema) -> String {
-    return "  case \(link.title!.snake2Camel)(\(apiParamsCode(link, join:"")))" + n
+    return "  case \(link.title!.snake2Camel)(\(apiParamsCode(link, join: "")))" + n
   }
 
   fileprivate func structParamsCode(_ link: LinkSchema) -> String {
@@ -95,11 +95,11 @@ class APIGenerator {
   fileprivate func structInitCodeDoc(_ link: LinkSchema) -> String {
     let block: codeBlock = {
       return ($1.description != nil ? "    /// - parameter \($0.snake2camel): \($1.description!)" : "") +
-             ($1.pattern != nil ? n + "    ///  ( pattern: \($1.pattern!) )"  : "") +
-             ($1.minLength != nil ? n +  "    ///  ( minLength: \($1.minLength!) )"  : "") +
-             ($1.maxLength != nil ? n +  "    ///  ( maxLength: \($1.maxLength!) )"  : "") +
-             ($1.minimum != nil ? n +  "    ///  ( minimum: \($1.minimum!) )"  : "") +
-             ($1.maximum != nil ? n +  "    ///  ( minimum: \($1.maximum!) )"  : "")
+             ($1.pattern != nil ? n + "    ///  ( pattern: \($1.pattern!) )" : "") +
+             ($1.minLength != nil ? n + "    ///  ( minLength: \($1.minLength!) )" : "") +
+             ($1.maxLength != nil ? n + "    ///  ( maxLength: \($1.maxLength!) )" : "") +
+             ($1.minimum != nil ? n + "    ///  ( minimum: \($1.minimum!) )" : "") +
+             ($1.maximum != nil ? n + "    ///  ( minimum: \($1.maximum!) )" : "")
     }
 
     return (link.hrefPropertiesCode(block) + link.parametersCode(block)).combineCodeBlock(n)
@@ -123,8 +123,8 @@ class APIGenerator {
 
   func pathParamCode(_ link: LinkSchema) -> String {
     let params = link.apiHrefProperties.enumerated().map {
-      "let \($1.0.snake2camel)"
-    } + link.apiParamProperties.map {
+          "let \($1.0.snake2camel)"
+        } + link.apiParamProperties.map {
       _, _ in
       "_"
     }
@@ -133,20 +133,20 @@ class APIGenerator {
 
   func pathStringCode(_ link: LinkSchema) -> String {
     return link.href.components(separatedBy: "/").filter {
-      $0 != ""
-    }
-    .map {
-      if ($0.contains("{")) {
-        let path = $0.replacingOccurrences(of: "{", with: "")
-        .replacingOccurrences(of: "}", with: "")
-        .removingPercentEncoding
-        let key = PropertySchema(byRef: path!, rootJSON: link.rootJSON)!.propertyKey
-        return "\\(\(key))"
-      }
-      return $0
-    }.reduce("") {
-      $0 + "/" + $1
-    }
+          $0 != ""
+        }
+        .map {
+          if ($0.contains("{")) {
+            let path = $0.replacingOccurrences(of: "{", with: "")
+                .replacingOccurrences(of: "}", with: "")
+                .removingPercentEncoding
+            let key = PropertySchema(byRef: path!, rootJSON: link.rootJSON)!.propertyKey
+            return "\\(\(key))"
+          }
+          return $0
+        }.reduce("") {
+          $0 + "/" + $1
+        }
   }
 
 
@@ -184,9 +184,9 @@ class APIGenerator {
 
   func paramsArgsCodeGen(_ link: LinkSchema) -> String {
     let params = link.apiHrefProperties.enumerated().map {
-      _, _ in
-      "_"
-    } + link.apiParamProperties.enumerated().map {
+          _, _ in
+          "_"
+        } + link.apiParamProperties.enumerated().map {
       "let \($1.0.snake2camel)"
     }
     return params.combineCodeBlock()
@@ -194,7 +194,7 @@ class APIGenerator {
 
   func initParamsCode(_ link: LinkSchema) -> String {
     let immutable = link.apiParamProperties.isEmpty ? "let" : "var"
-    return "      \(immutable ) params: [String: Any] = [:]"
+    return "      \(immutable) params: [String: Any] = [:]"
   }
 
   func paramsDictCodeGen(_ link: LinkSchema) -> String {
@@ -232,13 +232,13 @@ extension LinkSchema {
     return self.apiParamProperties.map(block)
   }
 
-  var apiHrefProperties: [String:PropertySchema] {
+  var apiHrefProperties: [String: PropertySchema] {
     return self.href.components(separatedBy: "/").filter {
       $0.contains("{")
     }.map {
       $0.replacingOccurrences(of: "{", with: "")
-      .replacingOccurrences(of: "}", with: "")
-      .removingPercentEncoding!
+          .replacingOccurrences(of: "}", with: "")
+          .removingPercentEncoding!
     }.map {
       PropertySchema(byRef: $0, rootJSON: self.rootJSON)!
     }.toDict {
@@ -261,7 +261,7 @@ extension LinkSchema {
     }.combineCodeBlock("/")
   }
 
-  var apiParamProperties: [String:PropertySchema] {
+  var apiParamProperties: [String: PropertySchema] {
     return self.schema?.properties ?? [:]
   }
 

@@ -30,8 +30,8 @@ class Generator {
     let beGenerated = SchemaGenerated(rootJSON: rootJSON)
 
     beGenerated.entities().forEach {
-      try! $0.1.write(toFile: "\(path)/Entity/\($0.0.snake2Camel)Entity.swift", atomically: true, encoding: String.Encoding.utf8)
-    }
+          try! $0.1.write(toFile: "\(path)/Entity/\($0.0.snake2Camel)Entity.swift", atomically: true, encoding: String.Encoding.utf8)
+        }
 
 
     let links = rootJSON["definitions"].flatMap {

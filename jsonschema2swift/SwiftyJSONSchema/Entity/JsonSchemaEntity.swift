@@ -87,10 +87,12 @@ extension RootSchemaProtocol {
     }
   }
 }
+
 /// type
 /// typeは必ず配列形式で記載し、2個以内とする
 /// 2個指定する場合は、片方を"null"にする
 ///  ["String", "Integer"]と記載すると、型を定義できないため
+
 enum ConcreteType: String {
   case null = "null"
   case array = "array"
@@ -457,6 +459,7 @@ struct MediaSchema {
 /// 独自定義
 /// enumプロパティの解説用に、独自に定義したプロパティ
 /// モデルクラスを自動生成する際に、各要素の名称を付けるために使う
+
 struct EnumDescription {
   var json: JSON
   var rootJSON: JSON

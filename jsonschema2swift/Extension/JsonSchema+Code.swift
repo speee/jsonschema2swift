@@ -319,22 +319,22 @@ extension TypeSchema {
 
   fileprivate func codeEnumsDeclare(_ schema: TypeSchema, propertyName: String, type: ConcreteType) -> String {
     return "  /// \(schema.description!)" ++
-    "  public enum \(propertyName.snake2Camel): \(schema.codeInnerTypeBy(schema, propertyName: propertyName, type: type)) {" +
-    schema.enumDescription!.map {
-          switch type {
-          case .integer:
-            return "    case \($0.key.snake2camel) = \($0.value)"
-          case .number:
-            return "    case \($0.key.snake2camel) = \($0.value)"
-          case .string:
-            return "    case \($0.key.snake2camel) = \"\($0.value)\""
-          default:
-            return ""
-          }
-        }.reduce("") {
-          $0 ++ $1
-        } ++
-    "  }" ++
-    ""
+           "  public enum \(propertyName.snake2Camel): \(schema.codeInnerTypeBy(schema, propertyName: propertyName, type: type)) {" +
+           schema.enumDescription!.map {
+             switch type {
+             case .integer:
+               return "    case \($0.key.snake2camel) = \($0.value)"
+             case .number:
+               return "    case \($0.key.snake2camel) = \($0.value)"
+             case .string:
+               return "    case \($0.key.snake2camel) = \"\($0.value)\""
+             default:
+               return ""
+             }
+           }.reduce("") {
+             $0 ++ $1
+           } ++
+           "  }" ++
+           ""
   }
 }

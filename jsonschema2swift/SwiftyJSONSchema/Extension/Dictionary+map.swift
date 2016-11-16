@@ -15,20 +15,20 @@ extension Dictionary {
 }
 
 extension Dictionary {
-  func mapPairs<OutKey:Hashable, OutValue>(_ transform: (Element) throws -> (OutKey, OutValue)) rethrows -> [OutKey:OutValue] {
+  func mapPairs<OutKey:Hashable, OutValue>(_ transform: (Element) throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
     return Dictionary<OutKey, OutValue>(try map(transform))
   }
 
-  func filterPairs(_ includeElement: (Element) throws -> Bool) rethrows -> [Key:Value] {
+  func filterPairs(_ includeElement: (Element) throws -> Bool) rethrows -> [Key: Value] {
     return Dictionary(try filter(includeElement))
   }
 
 }
 
 extension Sequence {
-  func toDict<K: Hashable, V>
-      (_ convert: (Iterator.Element) -> (K, V?)) -> [K:V] {
-    var result: [K:V] = [:]
+  func toDict<K:Hashable, V>
+      (_ convert: (Iterator.Element) -> (K, V?)) -> [K: V] {
+    var result: [K: V] = [:]
     for x in self {
       let (key, val) = convert(x)
       result[key] = val

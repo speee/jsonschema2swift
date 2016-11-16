@@ -5,11 +5,11 @@
 
 import Foundation
 
-infix operator ++ : indention
-infix operator ++= : indention
+infix operator ++: indention
+infix operator ++=: indention
 
 precedencegroup indention {
-  associativity :left
+  associativity: left
   lowerThan: AdditionPrecedence
 }
 
