@@ -20,7 +20,12 @@ class SchemaGenerated {
   func entities() -> [(String, String)] {
     return entityRefs().map {
       let schema = Schema(byRef: $0.1, rootJSON: rootJSON)!
-      return (schema.title ?? $0.0, EntityGenerator(rootSchema: rootSchema, name: schema.title ?? $0.0, schema: schema).generate())
+      return (schema.title ?? $0.0, schema)
+      }.filter{ (title:String, schema:Schema) in
+        return isEntity(code: title) ||
+        schema.properties?.count != 1
+      }.map{
+      return ($0.0, EntityGenerator(rootSchema: rootSchema, name: $0.0, schema: $0.1).generate())
     }
   }
 
@@ -36,7 +41,7 @@ class SchemaGenerated {
     }
     let targetSchemas = rootSchema.definitions!.filter {
       ($1.links != nil)
-    }.flatMap {
+      }.flatMap {
       return self.targetSchemasForEntity($1.title ?? $0, schema: $1.links!)
     }
 

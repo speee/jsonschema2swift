@@ -29,20 +29,29 @@ class Generator {
 
     let beGenerated = SchemaGenerated(rootJSON: rootJSON)
 
+    // generate Entities
     beGenerated.entities().forEach {
-          try! $0.1.write(toFile: "\(path)/Entity/\($0.0.snake2Camel)Entity.swift", atomically: true, encoding: String.Encoding.utf8)
+          let fileName = fixEntitySuffix(code: "\($0.0.snake2Camel)Entity")
+          try! $0.1.write(toFile: "\(path)/Entity/\(fileName).swift",
+                          atomically: true, encoding: String.Encoding.utf8)
         }
 
 
+    // generate API.swift
     let links = rootJSON["definitions"].flatMap {
       $0.1["links"].arrayValue
     }.map {
       LinkSchema(json: $0, rootJSON: rootJSON)
+    }.sorted { (schema0: LinkSchema, schema1: LinkSchema) in
+      (schema0.title ?? "") < (schema1.title ?? "")
     }
     let api = APIGenerator(rootSchema: rootSchema, links: links).generate()
-
     try! api.write(toFile: "\(path)/API.swift", atomically: true, encoding: String.Encoding.utf8)
 
+
+    // generate APIKey.swift
+    let apiKey = APIGenerator(rootSchema: rootSchema, links: links).generateKey()
+    try! apiKey.write(toFile: "\(path)/Entity+jsonKey.swift", atomically: true, encoding: String.Encoding.utf8)
 
   }
 
