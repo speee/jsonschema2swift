@@ -47,3 +47,14 @@ func getMatchCount(targetString: String, pattern: String) -> Int {
   }
   return 0
 }
+
+func replaseString(code: String, replace: String,template:String)->String{
+  do {
+    let rgx = try NSRegularExpression.init(pattern: "\(replace)")
+    let convertedString = rgx.stringByReplacingMatches(in: code, range: NSMakeRange(0, code.characters.count), withTemplate: template)
+    return convertedString
+  } catch let error as NSError {
+    print(error)
+  }
+  return code
+}
