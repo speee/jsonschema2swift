@@ -115,6 +115,7 @@ protocol TypeSchema: JsonSchema {
   var media: MediaSchema? { get }
   var title: String? { get }
   var description: String? { get }
+  
 }
 
 extension TypeSchema {
