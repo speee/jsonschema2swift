@@ -42,6 +42,8 @@ class Generator {
       $0.1["links"].arrayValue
     }.map {
       LinkSchema(json: $0, rootJSON: rootJSON)
+    }.sorted { (schema0: LinkSchema, schema1: LinkSchema) in
+      (schema0.title ?? "") < (schema1.title ?? "")
     }
     let api = APIGenerator(rootSchema: rootSchema, links: links).generate()
     try! api.write(toFile: "\(path)/API.swift", atomically: true, encoding: String.Encoding.utf8)
