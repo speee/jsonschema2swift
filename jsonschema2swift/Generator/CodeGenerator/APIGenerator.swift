@@ -138,7 +138,6 @@ class APIGenerator {
   }
 
 
-
   fileprivate func structInitCodeDoc(_ link: LinkSchema) -> String {
     let block: codeBlock = {
       return ($1.description != nil ? "    /// - parameter \($0.snake2camel): \($1.description!)" : "") +
@@ -188,7 +187,7 @@ class APIGenerator {
                 .replacingOccurrences(of: "}", with: "")
                 .removingPercentEncoding
             let key = PropertySchema(byRef: path!, rootJSON: link.rootJSON)!.hrefPropertyName ??
-              PropertySchema(byRef: path!, rootJSON: link.rootJSON)!.propertyKey
+                      PropertySchema(byRef: path!, rootJSON: link.rootJSON)!.propertyKey
             return "\\(\(key))"
           }
           return $0
@@ -298,11 +297,12 @@ extension LinkSchema {
   var hrefCode: String {
     return "/" + self.href.components(separatedBy: "/").map {
       if $0.contains("{") {
-        return "{" + $0.replacingOccurrences(of: "{", with: "")
+
+        let ref = $0.replacingOccurrences(of: "{", with: "")
             .replacingOccurrences(of: "}", with: "")
             .removingPercentEncoding!
-            .components(separatedBy: "/")
-            .last! + "}"
+        let propertySchema = PropertySchema(byRef: ref, rootJSON: self.rootJSON)!
+        return ":\(propertySchema.hrefPropertyName ?? propertySchema.propertyKey)"
       } else {
         return $0
       }
@@ -339,7 +339,7 @@ extension Sequence where Iterator.Element == String {
 
 
 extension PropertySchema {
-  var hrefPropertyName : String? {
+  var hrefPropertyName: String? {
     guard var code = self.ref else {
       return nil
     }
