@@ -96,7 +96,7 @@ class APIGenerator {
            "  ///" ++
            "  /// - href: \(link.hrefCode)" ++
            "  /// - method: \(link.method!)" ++
-           "  struct \(link.title!.snake2Camel): APITarget, APIProtocol {" ++
+           "  struct \(link.title!.snake2Camel): APITarget {" ++
            "    typealias Response = \(link.targetSchema?.responseElementCode() ?? "NoContentResponse")" ++
            "    var configuration: Configuration" ++
            structInitCodeDoc(link) ++
