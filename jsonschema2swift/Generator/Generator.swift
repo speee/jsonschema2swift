@@ -51,7 +51,7 @@ class Generator {
 
     // generate APIKey.swift
     let apiKey = APIGenerator(rootSchema: rootSchema, links: links).generateKey()
-    try! apiKey.write(toFile: "\(path)/APIKey.swift", atomically: true, encoding: String.Encoding.utf8)
+    try! apiKey.write(toFile: "\(path)/Entity+jsonKey.swift", atomically: true, encoding: String.Encoding.utf8)
 
   }
 
