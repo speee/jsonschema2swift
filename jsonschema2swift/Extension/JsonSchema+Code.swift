@@ -265,7 +265,7 @@ extension TypeSchema {
         return ""
       case .array:
         let nullCheck = self.nullable(required) ? "?" : ""
-        return "    self.\(propertyName.snake2camel) = json[\"\(propertyName)\"].arrayValue.map { \(self.mapInitCode(propertyName))! } as\(nullCheck) \(self.typeCode())" + n
+        return "    self.\(propertyName.snake2camel) = json[\"\(propertyName)\"].array!.map { \(self.mapInitCode(propertyName))! } as\(nullCheck) \(self.typeCode())" + n
       case .object:
         let nullCheck = self.nullable(required) ? "?" : "!"
         return "    self.\(propertyName.snake2camel) = \(self.typeCode())(json: json[\"\(propertyName)\"]) as \(self.typeCode())\(nullCheck)" + n
