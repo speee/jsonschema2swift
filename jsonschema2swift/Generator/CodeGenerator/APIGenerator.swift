@@ -45,7 +45,7 @@ class APIGenerator {
 
 
   var keyCode: String {
-    let keys: [String: (String, CodeClass)] =
+    let keys: [String: (String, CodeClass, String)] =
         self.links
             .filter {
               $0.targetSchema?.title?.contains("data") != nil
@@ -57,7 +57,7 @@ class APIGenerator {
               $0.properties!
             }
             .toDict {
-              ($0.value.typeInnerCode(), ($0.key, $0.value.codeClass()))
+              ($0.value.typeInnerCode() + ":" + $0.key, ($0.key, $0.value.codeClass(), $0.value.typeInnerCode()) )
             }
 
     let sortedKeys = keys.sorted {
@@ -68,12 +68,12 @@ class APIGenerator {
     return sortedKeys.reduce("") {
       switch $1.value.1 {
       case .array:
-        return $0 ++ "extension \($1.key): HasPluralJSONKeyEntity {" ++
-               "  static var plural = \"\($1.value.0)\"" ++
+        return $0 ++ "extension \($1.value.2): HasPluralJSONKeyEntity {" ++
+               "  static let plural = \"\($1.value.0)\"" ++
                "}" + n
       default:
-        return $0 ++ "extension \($1.key): HasSingularJSONKeyEntity {" ++
-               "  static var singular = \"\($1.value.0)\"" ++
+        return $0 ++ "extension \($1.value.2): HasSingularJSONKeyEntity {" ++
+               "  static let singular = \"\($1.value.0)\"" ++
                "}" + n
       }
 
