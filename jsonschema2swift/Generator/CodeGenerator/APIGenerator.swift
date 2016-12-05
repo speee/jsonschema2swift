@@ -71,10 +71,12 @@ class APIGenerator {
         return $0 ++ "extension \($1.value.2): HasPluralJSONKeyEntity {" ++
                "  static let plural = \"\($1.value.0)\"" ++
                "}" + n
-      default:
+      case .object:
         return $0 ++ "extension \($1.value.2): HasSingularJSONKeyEntity {" ++
                "  static let singular = \"\($1.value.0)\"" ++
                "}" + n
+      default:
+        return $0
       }
 
     }
