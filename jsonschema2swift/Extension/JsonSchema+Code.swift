@@ -38,7 +38,7 @@ extension TypeSchema {
         $0.type!.contains(.null)
       }.isEmpty
     } else if self.enumValues != nil {
-      return false
+      return true
     } else if let type = self.type {
       assert(type.count <= 2, "propertySchema.type.count > 2")
       return type.contains(.null)
@@ -258,7 +258,7 @@ extension TypeSchema {
     return { (_ schema: TypeSchema, propertyName: String, type: ConcreteType) in
       //FIXME
       if (schema.enumDescription) != nil {
-        return "    self.\(propertyName.snake2camel) = \(self.getPropertyTypeName(schema, propertyName: propertyName))(rawValue: json[\"\(propertyName)\"].\(self.rawValue(type: type))!)!" + n
+        return "    self.\(propertyName.snake2camel) = \(self.getPropertyTypeName(schema, propertyName: propertyName))(rawValue: json[\"\(propertyName)\"].\(self.rawValue(type: type))!)" + n
       }
       switch type {
       case .null:
