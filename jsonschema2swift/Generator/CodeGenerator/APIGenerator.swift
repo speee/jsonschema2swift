@@ -48,7 +48,7 @@ class APIGenerator {
     let keys: [String: (String, CodeClass, String)] =
         self.links
             .filter {
-              $0.targetSchema?.title?.contains("data") != nil
+              $0.targetSchema?.title?.contains("_data") ?? false
             }
             .flatMap {
               $0.targetSchema
