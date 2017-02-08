@@ -2,16 +2,25 @@
 
 json schema to generate swift code
 
+## インストール
+
+```.sh
+$ git clone <本リポジトリ>
+$ cd jsonschema2swift
+$ git submodule init
+$ git submodule update
+$ xcodebuild -project jsonschema2swift.xcodeproj
+```
 
 ## 実行方法
 ```.sh
-./jsonschema2swift {json schema} {output directory}
+$ ./bin/jsonschema2swift {json schema} {output directory}
 ```
 
 ### example
  
 ```.sh
-./jsonschema2swift test1.json ./output
+$ ./bin/jsonschema2swift test1.json ./output
 ```
 
 
