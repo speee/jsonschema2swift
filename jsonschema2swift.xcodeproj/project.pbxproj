@@ -12,6 +12,8 @@
 		0B5BF9F21D75892E0090666D /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5BF9D31D7432090090666D /* Generator.swift */; };
 		0B670D511EAB01C50011A0CB /* ComposeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B670D501EAB01C50011A0CB /* ComposeFunctions.swift */; };
 		0B670D531EAB01E40011A0CB /* String+fixEntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B670D521EAB01E40011A0CB /* String+fixEntityName.swift */; };
+		0B670D541EAB04100011A0CB /* String+fixEntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B670D521EAB01E40011A0CB /* String+fixEntityName.swift */; };
+		0B670D551EAB04130011A0CB /* ComposeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B670D501EAB01C50011A0CB /* ComposeFunctions.swift */; };
 		0B7926941DA3556C002B1A8B /* SchemaGenereated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7926931DA3556C002B1A8B /* SchemaGenereated.swift */; };
 		0B7926951DA35623002B1A8B /* SchemaGenereated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7926931DA3556C002B1A8B /* SchemaGenereated.swift */; };
 		0BCC5DB11DBE149500DE77FC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC5DB01DBE149500DE77FC /* SwiftyJSON.swift */; };
@@ -383,7 +385,9 @@
 				5CAE5368D0607814951B4594 /* Const.swift in Sources */,
 				5CAE5C4CD25A635C7A6390EF /* String+Indention.swift in Sources */,
 				5CAE52EF164969911BD89E29 /* JsonSchema+Code.swift in Sources */,
+				0B670D551EAB04130011A0CB /* ComposeFunctions.swift in Sources */,
 				5CAE5B99BF545DF9CACF00DE /* Schema2Code.swift in Sources */,
+				0B670D541EAB04100011A0CB /* String+fixEntityName.swift in Sources */,
 				5CAE538CFCB3F5C0E419B972 /* EntityGenerator.swift in Sources */,
 				0BCC5DB31DBE14E700DE77FC /* SwiftyJSON.swift in Sources */,
 				5CAE5124EF10E1E89877748B /* APIGenerator.swift in Sources */,
