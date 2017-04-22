@@ -8,17 +8,23 @@ import SwiftyJSON
 /// department
 ///
 /// 部署
-public struct DepartmentEntity: EntityType {
+public struct DepartmentEntity: SingleEntityType {
 
   /// 部署ID
-  var id: Int
+  public var id: Int
   /// 部署名
-  var name: String
+  public var name: String
   /// 会社ID
-  var companyId: Int
+  public var companyId: Int
+
+  public init(id: Int, name: String, companyId: Int) {
+    self.id = id
+    self.name = name
+    self.companyId = companyId
+  }
 
   public init?(json: JSON) {
-    guard !json.isEmpty else {
+    if json.isEmpty {
       return nil
     }
     self.id = json["id"].int!
@@ -26,9 +32,9 @@ public struct DepartmentEntity: EntityType {
     self.companyId = json["company_id"].int!
   }
 
-  static func ==(left: DepartmentEntity, right: DepartmentEntity) -> Bool {
+  public static func ==(left: DepartmentEntity, right: DepartmentEntity) -> Bool {
     return left.company_id == right.company_id
- && left.name == right.name
+      && left.name == right.name
 
   }
 
@@ -36,7 +42,7 @@ public struct DepartmentEntity: EntityType {
     var param: [String: Any] = [:]
     param["id"] = id.serialized
     param["name"] = name.serialized
-    param["companyId"] = companyId.serialized
+    param["company_id"] = companyId.serialized
     return param
   }
 }

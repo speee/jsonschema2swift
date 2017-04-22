@@ -172,7 +172,7 @@ class EntityGenerator {
              "  public static func ==(left: \(entityName(name)), right: \(entityName(name))) -> Bool {" ++
              "    return " + self.schema.identity.map {
                "left.\($0.propertyKey) == right.\($0.propertyKey)" + n
-             }.combineCodeBlock(" && ")
+             }.combineCodeBlock("      && ")
              + n +
              "  }" + n
     }

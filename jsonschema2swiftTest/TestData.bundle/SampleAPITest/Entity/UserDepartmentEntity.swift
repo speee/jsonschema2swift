@@ -6,10 +6,10 @@ import SwiftyJSON
 
 
 /// user_department
-public struct UserDepartmentEntity: EntityType {
+public struct UserDepartmentEntity: RelatedEntityType {
 
   /// 役職名
-  enum Role: String {
+  public enum Role: String {
     case staff = "一般社員"
     case projectGeneralManager = "主査"
     case supervisor = "主任"
@@ -33,21 +33,26 @@ public struct UserDepartmentEntity: EntityType {
   }
 
   /// 役職名
-  var role: Role
+  public var role: RoleEntity.Role?
   /// 部署
-  var department: DepartmentEntity
+  public var department: DepartmentEntity
+
+  public init(role: RoleEntity.Role? = nil, department: DepartmentEntity) {
+    self.role = role
+    self.department = department
+  }
 
   public init?(json: JSON) {
-    guard !json.isEmpty else {
+    if json.isEmpty {
       return nil
     }
-    self.role = Role(rawValue: json["role"].string!)!
+    self.role = RoleEntity.Role(rawValue: json["role"].string!)
     self.department = DepartmentEntity(json: json["department"]) as DepartmentEntity!
   }
 
   var serialized: [String: Any] {
     var param: [String: Any] = [:]
-    param["role"] = role.serialized
+    param["role"] = role?.serialized
     param["department"] = department.serialized
     return param
   }

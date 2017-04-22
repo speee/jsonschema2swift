@@ -6,19 +6,24 @@ import SwiftyJSON
 
 
 /// company_club
-public struct CompanyClubEntity: EntityType {
+public struct CompanyClubEntity: RelatedEntityType {
 
   /// クラブ名
-  var name: String
+  public var name: String
 
-  var users: [UserEntity]
+  public var users: [UserEntity]
+
+  public init(name: String, users: [UserEntity]) {
+    self.name = name
+    self.users = users
+  }
 
   public init?(json: JSON) {
-    guard !json.isEmpty else {
+    if json.isEmpty {
       return nil
     }
     self.name = json["name"].string!
-    self.users = json["users"].arrayValue.map { UserEntity(json: $0)! } as [UserEntity]
+    self.users = json["users"].array!.map { UserEntity(json: $0)! } as [UserEntity]
   }
 
   var serialized: [String: Any] {

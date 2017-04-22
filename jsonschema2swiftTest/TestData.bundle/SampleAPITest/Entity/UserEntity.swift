@@ -8,34 +8,43 @@ import SwiftyJSON
 /// user
 ///
 /// ユーザ
-public struct UserEntity: EntityType {
+public struct UserEntity: RelatedEntityType {
 
   /// 社員名
-  var name: String
+  public var name: String
   /// メールアドレス
-  var email: String
+  public var email: String
   /// 社員ID
-  var id: Int
+  public var id: Int
   /// 所属部署
-  var departments: [UserDepartmentEntity]
+  public var departments: [UserDepartmentEntity]
   /// 会社
-  var company: CompanyEntity
+  public var company: CompanyEntity
 
-  var userProfile: UserProfileEntity?
+  public var userProfile: UserProfileEntity?
+
+  public init(name: String, email: String, id: Int, departments: [UserDepartmentEntity], company: CompanyEntity, userProfile: UserProfileEntity? = nil) {
+    self.name = name
+    self.email = email
+    self.id = id
+    self.departments = departments
+    self.company = company
+    self.userProfile = userProfile
+  }
 
   public init?(json: JSON) {
-    guard !json.isEmpty else {
+    if json.isEmpty {
       return nil
     }
     self.name = json["name"].string!
     self.email = json["email"].string!
     self.id = json["id"].int!
-    self.departments = json["departments"].arrayValue.map { UserDepartmentEntity(json: $0)! } as [UserDepartmentEntity]
+    self.departments = json["departments"].array!.map { UserDepartmentEntity(json: $0)! } as [UserDepartmentEntity]
     self.company = CompanyEntity(json: json["company"]) as CompanyEntity!
     self.userProfile = UserProfileEntity(json: json["user_profile"]) as UserProfileEntity?
   }
 
-  static func ==(left: UserEntity, right: UserEntity) -> Bool {
+  public static func ==(left: UserEntity, right: UserEntity) -> Bool {
     return left.id == right.id
 
   }
@@ -47,7 +56,7 @@ public struct UserEntity: EntityType {
     param["id"] = id.serialized
     param["departments"] = departments.serialized
     param["company"] = company.serialized
-    param["userProfile"] = userProfile?.serialized
+    param["user_profile"] = userProfile?.serialized
     return param
   }
 }
