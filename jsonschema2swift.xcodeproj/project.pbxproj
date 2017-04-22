@@ -10,6 +10,8 @@
 		0B5BF9D41D7432090090666D /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5BF9D31D7432090090666D /* Generator.swift */; };
 		0B5BF9D71D7433680090666D /* TestData.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B5BF9D61D7433680090666D /* TestData.bundle */; };
 		0B5BF9F21D75892E0090666D /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5BF9D31D7432090090666D /* Generator.swift */; };
+		0B670D511EAB01C50011A0CB /* ComposeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B670D501EAB01C50011A0CB /* ComposeFunctions.swift */; };
+		0B670D531EAB01E40011A0CB /* String+fixEntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B670D521EAB01E40011A0CB /* String+fixEntityName.swift */; };
 		0B7926941DA3556C002B1A8B /* SchemaGenereated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7926931DA3556C002B1A8B /* SchemaGenereated.swift */; };
 		0B7926951DA35623002B1A8B /* SchemaGenereated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7926931DA3556C002B1A8B /* SchemaGenereated.swift */; };
 		0BCC5DB11DBE149500DE77FC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC5DB01DBE149500DE77FC /* SwiftyJSON.swift */; };
@@ -57,6 +59,8 @@
 		0B4755731D7018C100627C77 /* jsonschema2swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = jsonschema2swift; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B5BF9D31D7432090090666D /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		0B5BF9D61D7433680090666D /* TestData.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TestData.bundle; sourceTree = "<group>"; };
+		0B670D501EAB01C50011A0CB /* ComposeFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeFunctions.swift; sourceTree = "<group>"; };
+		0B670D521EAB01E40011A0CB /* String+fixEntityName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+fixEntityName.swift"; sourceTree = "<group>"; };
 		0B7926931DA3556C002B1A8B /* SchemaGenereated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaGenereated.swift; sourceTree = "<group>"; };
 		0BC8F1901D7409F30085A234 /* jsonschema2swiftTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jsonschema2swiftTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BC8F1941D7409F30085A234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -175,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				5CAE51EA26FFD1BF4B505156 /* Dictionary+map.swift */,
+				0B670D501EAB01C50011A0CB /* ComposeFunctions.swift */,
 				5CAE5C204123E4E9C8549B4C /* JSON+ByRef.swift */,
 			);
 			path = Extension;
@@ -203,6 +208,7 @@
 				5CAE5DF0E75C26D0DB8E14B2 /* Converter */,
 				5CAE55FF603DCB40F7E5FF37 /* JsonSchema+Code.swift */,
 				5CAE52C400B29ACFE20E3F28 /* String+Indention.swift */,
+				0B670D521EAB01E40011A0CB /* String+fixEntityName.swift */,
 				5CAE5DFEF2DCAE2108562F15 /* String+SnakeCamel.swift */,
 			);
 			path = Extension;
@@ -341,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B670D511EAB01C50011A0CB /* ComposeFunctions.swift in Sources */,
 				0B5BF9D41D7432090090666D /* Generator.swift in Sources */,
 				5CAE53D0C2D570E2B05B0B60 /* Errors.swift in Sources */,
 				5CAE50D588FF480364FE33A0 /* Dictionary+map.swift in Sources */,
@@ -353,6 +360,7 @@
 				5CAE52FDA90FB4673EE1832B /* String+Indention.swift in Sources */,
 				5CAE5ABAE53CF4AAB8239B6A /* JsonSchema+Code.swift in Sources */,
 				0BCC5DB11DBE149500DE77FC /* SwiftyJSON.swift in Sources */,
+				0B670D531EAB01E40011A0CB /* String+fixEntityName.swift in Sources */,
 				5CAE50A718589C10FD65D68F /* Schema2Code.swift in Sources */,
 				5CAE53454CEAF875910E8C23 /* EntityGenerator.swift in Sources */,
 				5CAE575DF450E40D54966C1D /* APIGenerator.swift in Sources */,
