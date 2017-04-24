@@ -14,8 +14,8 @@ struct API {
   ///
   /// - href: /api/users
   /// - method: GET
-  struct GetUsers: APITarget, APIProtocol {
-    typealias Entity = ResponseArray<UserEntity>
+  struct GetUsers: APITarget {
+    typealias Response = NoContentResponse
     var configuration: Configuration
     /// - parameter after: 次のページのキー
     /// - parameter before: 前のページのキー
@@ -26,10 +26,10 @@ struct API {
       params["before"] = before?.serialized
       params["company_id"] = companyId.serialized
       configuration = Configuration.init(
-          path: "/api/users",
-          method: .get,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/users",
+        method: .get,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -40,15 +40,15 @@ struct API {
   ///
   /// - href: /api/users
   /// - method: POST
-  struct CreateUser: APITarget, APIProtocol {
-    typealias Entity = ResponseEntity<UserEntity>
+  struct CreateUser: APITarget {
+    typealias Response = DataResponse<UserEntity>
     var configuration: Configuration
     /// - parameter name: 社員名
     /// - parameter companyId: 会社ID
     /// - parameter email: メールアドレス
     /// - parameter departments: 所属部署
 
-    init(name: String, companyId: Int, email: String, departments: [UserDepartmentParamsEntity], profile: UserProfileParamsEntity?) {
+    init(name: String, companyId: Int, email: String, departments: [UserDepartmentParams], profile: UserProfileParams?) {
       var params: [String: Any] = [:]
       params["name"] = name.serialized
       params["company_id"] = companyId.serialized
@@ -56,10 +56,10 @@ struct API {
       params["departments"] = departments.serialized
       params["profile"] = profile?.serialized
       configuration = Configuration.init(
-          path: "/api/users",
-          method: .post,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/users",
+        method: .post,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -68,19 +68,19 @@ struct API {
   ///
   /// 社員情報を取得する
   ///
-  /// - href: /api/users/{id}
+  /// - href: /api/users/:userId
   /// - method: GET
-  struct GetUser: APITarget, APIProtocol {
-    typealias Entity = ResponseEntity<UserEntity>
+  struct GetUser: APITarget {
+    typealias Response = DataResponse<UserEntity>
     var configuration: Configuration
-    /// - parameter id: 社員ID
-    init(id: Int) {
+    /// - parameter userid: 社員ID
+    init(userId: Int) {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
-          path: "/api/users/\(id)",
-          method: .get,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/users/\(userId)",
+        method: .get,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -89,27 +89,27 @@ struct API {
   ///
   /// 社員情報を更新する
   ///
-  /// - href: /api/users/{id}
+  /// - href: /api/users/:userId
   /// - method: PATCH
-  struct UpdateUser: APITarget, APIProtocol {
-    typealias Entity = ResponseEntity<UserEntity>
+  struct UpdateUser: APITarget {
+    typealias Response = DataResponse<UserEntity>
     var configuration: Configuration
-    /// - parameter id: 社員ID
+    /// - parameter userid: 社員ID
     /// - parameter name: 社員名
     /// - parameter email: メールアドレス
     /// - parameter departments: 所属部署
 
-    init(id: Int, name: String?, email: String?, departments: [UserDepartmentParamsEntity]?, profile: UserProfileParamsEntity?) {
+    init(userId: Int, name: String?, email: String?, departments: [UserDepartmentParams]?, profile: UserProfileParams?) {
       var params: [String: Any] = [:]
       params["name"] = name?.serialized
       params["email"] = email?.serialized
       params["departments"] = departments?.serialized
       params["profile"] = profile?.serialized
       configuration = Configuration.init(
-          path: "/api/users/\(id)",
-          method: .patch,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/users/\(userId)",
+        method: .patch,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -118,19 +118,19 @@ struct API {
   ///
   /// 社員情報を削除する
   ///
-  /// - href: /api/users/{id}
+  /// - href: /api/users/:userId
   /// - method: DELETE
-  struct DeleteUser: APITarget, APIProtocol {
-    typealias Entity = ResponseEntity<NoContentEntity>
+  struct DeleteUser: APITarget {
+    typealias Response = NoContentResponse
     var configuration: Configuration
-    /// - parameter id: 社員ID
-    init(id: Int) {
+    /// - parameter userid: 社員ID
+    init(userId: Int) {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
-          path: "/api/users/\(id)",
-          method: .delete,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/users/\(userId)",
+        method: .delete,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -141,8 +141,8 @@ struct API {
   ///
   /// - href: /api/users/search
   /// - method: GET
-  struct SearchUsers: APITarget, APIProtocol {
-    typealias Entity = ResponseArray<UserEntity>
+  struct SearchUsers: APITarget {
+    typealias Response = NoContentResponse
     var configuration: Configuration
     /// - parameter departmentId: 部署ID
     /// - parameter companyId: 会社ID
@@ -150,7 +150,7 @@ struct API {
     /// - parameter after: 次のページのキー
     /// - parameter role: 役職名
     /// - parameter before: 前のページのキー
-    init(departmentId: Int?, companyId: Int, keyword: String?, after: String?, role: Role?, before: String?) {
+    init(departmentId: Int?, companyId: Int, keyword: String?, after: String?, role: RoleEntity.Role?, before: String?) {
       var params: [String: Any] = [:]
       params["department_id"] = departmentId?.serialized
       params["company_id"] = companyId.serialized
@@ -159,10 +159,10 @@ struct API {
       params["role"] = role?.serialized
       params["before"] = before?.serialized
       configuration = Configuration.init(
-          path: "/api/users/search",
-          method: .get,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/users/search",
+        method: .get,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -173,17 +173,17 @@ struct API {
   ///
   /// - href: /api/companies
   /// - method: GET
-  struct GetCompanies: APITarget, APIProtocol {
-    typealias Entity = ResponseArray<CompanyEntity>
+  struct GetCompanies: APITarget {
+    typealias Response = NoContentResponse
     var configuration: Configuration
 
     init() {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
-          path: "/api/companies",
-          method: .get,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/companies",
+        method: .get,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -194,8 +194,8 @@ struct API {
   ///
   /// - href: /api/companies
   /// - method: POST
-  struct CreateCompany: APITarget, APIProtocol {
-    typealias Entity = ResponseEntity<CompanyEntity>
+  struct CreateCompany: APITarget {
+    typealias Response = DataResponse<CompanyEntity>
     var configuration: Configuration
     /// - parameter tel: 電話番号
     ///  ( pattern: ^[0-9]{2,5}-?[0-9]{1,4}-?[0-9]{4}$ )
@@ -204,7 +204,7 @@ struct API {
     /// - parameter listedFlag: 上場企業かどうか
     /// - parameter url: 会社URL
     /// - parameter address: 住所
-    init(tel: String?, name: String, companyType: CompanyType, listedFlag: Bool?, url: String?, address: String) {
+    init(tel: String?, name: String, companyType: CompanyEntity.CompanyType, listedFlag: Bool?, url: String?, address: String) {
       var params: [String: Any] = [:]
       params["tel"] = tel?.serialized
       params["name"] = name.serialized
@@ -213,10 +213,10 @@ struct API {
       params["url"] = url?.serialized
       params["address"] = address.serialized
       configuration = Configuration.init(
-          path: "/api/companies",
-          method: .post,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/companies",
+        method: .post,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -225,19 +225,19 @@ struct API {
   ///
   /// 会社情報を取得する
   ///
-  /// - href: /api/companies/{id}
+  /// - href: /api/companies/:companyId
   /// - method: GET
-  struct GetCompany: APITarget, APIProtocol {
-    typealias Entity = ResponseEntity<CompanyEntity>
+  struct GetCompany: APITarget {
+    typealias Response = DataResponse<CompanyEntity>
     var configuration: Configuration
-    /// - parameter id: 会社ID
-    init(id: Int) {
+    /// - parameter companyid: 会社ID
+    init(companyId: Int) {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
-          path: "/api/companies/\(id)",
-          method: .get,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/companies/\(companyId)",
+        method: .get,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -246,12 +246,12 @@ struct API {
   ///
   /// 会社情報を更新する
   ///
-  /// - href: /api/companies/{id}
+  /// - href: /api/companies/:companyId
   /// - method: PATCH
-  struct UpdateCompany: APITarget, APIProtocol {
-    typealias Entity = ResponseEntity<CompanyEntity>
+  struct UpdateCompany: APITarget {
+    typealias Response = DataResponse<CompanyEntity>
     var configuration: Configuration
-    /// - parameter id: 会社ID
+    /// - parameter companyid: 会社ID
     /// - parameter tel: 電話番号
     ///  ( pattern: ^[0-9]{2,5}-?[0-9]{1,4}-?[0-9]{4}$ )
     /// - parameter name: 会社名
@@ -259,7 +259,7 @@ struct API {
     /// - parameter listedFlag: 上場企業かどうか
     /// - parameter url: 会社URL
     /// - parameter address: 住所
-    init(id: Int, tel: String?, name: String?, companyType: CompanyType?, listedFlag: Bool?, url: String?, address: String?) {
+    init(companyId: Int, tel: String?, name: String?, companyType: CompanyEntity.CompanyType?, listedFlag: Bool?, url: String?, address: String?) {
       var params: [String: Any] = [:]
       params["tel"] = tel?.serialized
       params["name"] = name?.serialized
@@ -268,10 +268,10 @@ struct API {
       params["url"] = url?.serialized
       params["address"] = address?.serialized
       configuration = Configuration.init(
-          path: "/api/companies/\(id)",
-          method: .patch,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/companies/\(companyId)",
+        method: .patch,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -280,19 +280,19 @@ struct API {
   ///
   /// 会社情報を削除する
   ///
-  /// - href: /api/companies/{id}
+  /// - href: /api/companies/:companyId
   /// - method: DELETE
-  struct DeleteCompany: APITarget, APIProtocol {
-    typealias Entity = ResponseEntity<NoContentEntity>
+  struct DeleteCompany: APITarget {
+    typealias Response = NoContentResponse
     var configuration: Configuration
-    /// - parameter id: 会社ID
-    init(id: Int) {
+    /// - parameter companyid: 会社ID
+    init(companyId: Int) {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
-          path: "/api/companies/\(id)",
-          method: .DELETE,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/companies/\(companyId)",
+        method: .delete,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -301,19 +301,19 @@ struct API {
   ///
   /// 会社の部署一覧を取得する
   ///
-  /// - href: /api/companies/{id}/departments
+  /// - href: /api/companies/:companyId/departments
   /// - method: GET
-  struct SearchCompanyDepartments: APITarget, APIProtocol {
-    typealias Entity = ResponseArray<DepartmentEntity>
+  struct SearchCompanyDepartments: APITarget {
+    typealias Response = NoContentResponse
     var configuration: Configuration
-    /// - parameter id: 会社ID
-    init(id: Int) {
+    /// - parameter companyid: 会社ID
+    init(companyId: Int) {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
-          path: "/api/companies/\(id)/departments",
-          method: .get,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/companies/\(companyId)/departments",
+        method: .get,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -322,19 +322,20 @@ struct API {
   ///
   /// 会社の部署に所属する社員一覧を取得する
   ///
-  /// - href: /api/companies/{id}/departments/{id}/users
+  /// - href: /api/companies/:companyId/departments/:departmentId/users
   /// - method: GET
-  struct SearchCompanyDepartmentUsers: APITarget, APIProtocol {
-    typealias Entity = ResponseArray<UserEntity>
+  struct SearchCompanyDepartmentUsers: APITarget {
+    typealias Response = NoContentResponse
     var configuration: Configuration
-    /// - parameter id: 部署ID
-    init(id: Int) {
+    /// - parameter companyid: 会社ID
+    /// - parameter departmentid: 部署ID
+    init(companyId: Int, departmentId: Int) {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
-          path: "/api/companies/\(id)/departments/\(id)/users",
-          method: .get,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/companies/\(companyId)/departments/\(departmentId)/users",
+        method: .get,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }
@@ -343,19 +344,19 @@ struct API {
   ///
   /// 会社の部署に所属する社員一覧を取得する
   ///
-  /// - href: /api/companies/{id}/clubs
+  /// - href: /api/companies/:companyId/clubs
   /// - method: GET
-  struct SearchCompanyClubs: APITarget, APIProtocol {
-    typealias Entity = ResponseArray<CompanyClubEntity>
+  struct SearchCompanyClubs: APITarget {
+    typealias Response = NoContentResponse
     var configuration: Configuration
-    /// - parameter id: 会社ID
-    init(id: Int) {
+    /// - parameter companyid: 会社ID
+    init(companyId: Int) {
       let params: [String: Any] = [:]
       configuration = Configuration.init(
-          path: "/api/companies/\(id)/clubs",
-          method: .get,
-          parameters: params,
-          sampleDataString: ""
+        path: "/api/companies/\(companyId)/clubs",
+        method: .get,
+        parameters: params,
+        sampleDataString: ""
       )
     }
   }

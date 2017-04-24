@@ -8,10 +8,10 @@ import SwiftyJSON
 /// role
 ///
 /// 役職
-public struct RoleEntity: EntityType {
+public struct RoleEntity: SingleEntityType {
 
   /// 役職名
-  enum Name: String {
+  public enum Name: String {
     case staff = "一般社員"
     case projectGeneralManager = "主査"
     case supervisor = "主任"
@@ -35,23 +35,27 @@ public struct RoleEntity: EntityType {
   }
 
   /// 役職名
-  var name: Name
+  public var name: RoleEntity.Name?
 
-  public init?(json: JSON) {
-    guard !json.isEmpty else {
-      return nil
-    }
-    self.name = Name(rawValue: json["name"].string!)!
+  public init(name: RoleEntity.Name? = nil) {
+    self.name = name
   }
 
-  static func ==(left: RoleEntity, right: RoleEntity) -> Bool {
+  public init?(json: JSON) {
+    if json.isEmpty {
+      return nil
+    }
+    self.name = RoleEntity.Name(rawValue: json["name"].string!)
+  }
+
+  public static func ==(left: RoleEntity, right: RoleEntity) -> Bool {
     return left.name == right.name
 
   }
 
   var serialized: [String: Any] {
     var param: [String: Any] = [:]
-    param["name"] = name.serialized
+    param["name"] = name?.serialized
     return param
   }
 }

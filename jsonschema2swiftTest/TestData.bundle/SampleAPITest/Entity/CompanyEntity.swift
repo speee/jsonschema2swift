@@ -8,10 +8,10 @@ import SwiftyJSON
 /// company
 ///
 /// 会社
-public struct CompanyEntity: EntityType {
+public struct CompanyEntity: SingleEntityType {
 
   /// 会社の種類
-  enum CompanyType: Int {
+  public enum CompanyType: Int {
     case kabushiki = 1
     case goudou = 2
     case goumei = 3
@@ -19,23 +19,33 @@ public struct CompanyEntity: EntityType {
   }
 
   /// 会社名
-  var name: String
+  public var name: String
   /// 会社ID
-  var id: Int
+  public var id: Int
   /// 住所
-  var address: String
+  public var address: String
   /// 電話番号
   /// - pattern: ^[0-9]{2,5}-?[0-9]{1,4}-?[0-9]{4}$
-  var tel: String?
+  public var tel: String?
   /// 上場企業かどうか
-  var listedFlag: Bool?
+  public var listedFlag: Bool?
   /// 会社の種類
-  var companyType: CompanyType
+  public var companyType: CompanyEntity.CompanyType?
   /// 会社URL
-  var url: String?
+  public var url: String?
+
+  public init(name: String, id: Int, address: String, tel: String? = nil, listedFlag: Bool? = nil, companyType: CompanyEntity.CompanyType? = nil, url: String? = nil) {
+    self.name = name
+    self.id = id
+    self.address = address
+    self.tel = tel
+    self.listedFlag = listedFlag
+    self.companyType = companyType
+    self.url = url
+  }
 
   public init?(json: JSON) {
-    guard !json.isEmpty else {
+    if json.isEmpty {
       return nil
     }
     self.name = json["name"].string!
@@ -43,11 +53,11 @@ public struct CompanyEntity: EntityType {
     self.address = json["address"].string!
     self.tel = json["tel"].string
     self.listedFlag = json["listed_flag"].bool
-    self.companyType = CompanyType(rawValue: json["company_type"].integer!)!
+    self.companyType = CompanyEntity.CompanyType(rawValue: json["company_type"].int!)
     self.url = json["url"].string
   }
 
-  static func ==(left: CompanyEntity, right: CompanyEntity) -> Bool {
+  public static func ==(left: CompanyEntity, right: CompanyEntity) -> Bool {
     return left.id == right.id
 
   }
@@ -58,8 +68,8 @@ public struct CompanyEntity: EntityType {
     param["id"] = id.serialized
     param["address"] = address.serialized
     param["tel"] = tel?.serialized
-    param["listedFlag"] = listedFlag?.serialized
-    param["companyType"] = companyType.serialized
+    param["listed_flag"] = listedFlag?.serialized
+    param["company_type"] = companyType?.serialized
     param["url"] = url?.serialized
     return param
   }
